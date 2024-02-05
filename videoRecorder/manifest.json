@@ -3,7 +3,7 @@
     "description": "Record tool for Video Element of Page",
     "version": "0.1",
     "manifest_version": 3,
-    "permissions": ["storage", "tabs", "scripting", "activeTab"],
+    "permissions": ["storage", "tabs", "scripting", "activeTab", "unlimitedStorage"],
     "host_permissions": ["<all_urls>"],
     "action": {
         "default_popup": "popup.html"

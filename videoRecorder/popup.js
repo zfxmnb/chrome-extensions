@@ -9,22 +9,25 @@ const currentEle = document.querySelector("#checkbox_current");
 const iframeELE = document.querySelector('#checkbox_iframe');
 const clearDomainsEle = document.querySelector('#clear_domains');
 
-function updateStatus() {
+async function updateStatus() {
+    const tab = await getTab();
+    if (!tab?.url || !/^https?:\/\/[^\/]+/.test(tab.url) || tab?.status !== 'complete') {
+        currentEle.parentNode.classList.add('disabled');
+        currentEle.removeAttribute('checked');
+        return 
+    }
     chrome.storage.local.get(['scope_all', 'scope_domain', 'scope_iframe'], async function({ scope_all = false, scope_domain = [], scope_iframe = false} = {}) {
         scope_all ? allEle.setAttribute('checked', ''): allEle.removeAttribute('checked');
         scope_iframe ? iframeELE.setAttribute('checked', ''): iframeELE.removeAttribute('checked');
-        const tab = await getTab();
-        if (tab?.url && /^https?:\/\/[^\/]+/.test(tab.url)) {
-            const origin = tab.url.match(/^https?:\/\/[^\/]+/)?.[0];
-            const domainChecked = scope_domain.includes(origin);
-            currentEle.parentNode.classList.remove('disabled');
-            domainChecked ? currentEle.setAttribute('checked', ''): currentEle.removeAttribute('checked');
-        } else {
-            currentEle.parentNode.classList.add('disabled');
-        }
+        const origin = tab.url.match(/^https?:\/\/[^\/]+/)?.[0];
+        const domainChecked = scope_domain.includes(origin);
+        currentEle.parentNode.classList.remove('disabled');
+        domainChecked ? currentEle.setAttribute('checked', ''): currentEle.removeAttribute('checked');
     });
 }
+
 updateStatus();
+chrome.tabs.onActivated.addListener(updateStatus);
 chrome.storage.onChanged.addListener(updateStatus);
 chrome.tabs.onUpdated.addListener(updateStatus);
 

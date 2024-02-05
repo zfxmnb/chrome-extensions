@@ -1,0 +1,41 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+.container {
+    padding: 10px 0;
+    width: 200px;
+}
+
+.item {
+    margin-bottom: 5px;
+    font-size: 16px;
+    padding: 0 4px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    
+}
+
+.item:last-child {
+    margin-bottom: 0;
+}
+
+.indentation {
+    padding: 4px;
+    padding-left: 20px;
+    font-size: 12px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.other {
+    border-top: 1px solid gray;
+    padding-top: 4px;
+}
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}

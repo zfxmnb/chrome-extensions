@@ -1,0 +1,19 @@
+{
+    "name": "Video Recorder",
+    "description": "Record tool for Video Element of Page",
+    "version": "0.1",
+    "manifest_version": 3,
+    "permissions": ["storage", "tabs", "scripting", "activeTab"],
+    "host_permissions": ["<all_urls>"],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "icons": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+    }
+  }

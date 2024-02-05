@@ -16,7 +16,7 @@ let items = '';
 ColorEnum.forEach((color, index) => {
     items += `<div class="item row">
         <input type="radio" name="color" id="c${index}" name="all" value="${index}" ${index === 0 ? 'checked': ''}/>
-        <label for="c${index}"><div class="color" data-color="${color}" style="background-color:${color};"></div></label>
+        <label for="c${index}"><div class="color" data-color="${color}" style="background-color:${color};">${ index <= 3 ? `Ctrl+Shift+${(10-index) % 10}` : ''}</div></label>
     </div>\n`
 })
 containerEle.innerHTML = items;
@@ -53,7 +53,7 @@ async function updateStatus() {
     if (!tab?.url || !/^https?:\/\/[^\/]+/.test(tab.url) || tab?.status !== 'complete') {
         containerEle.classList.add('disabled');
         radios.forEach((radio, index) => {
-           index === 0 ? radio.setAttribute('checked', '') : radio.removeAttribute('checked');
+           radio.checked = index === 0;
         })
         return
     }
@@ -61,10 +61,10 @@ async function updateStatus() {
         const [_, origin, pathname] = tab.url.match(/(^https?:\/\/[^\/]+)(\S*)/) ?? [];
         let colorType = 0;
         if (status?.[origin]?.[pathname] >= 0) {
-            colorType = status?.[origin]?.[pathname]
+            colorType = Number(status?.[origin]?.[pathname])
         }
         radios.forEach((radio) => {
-            Number(radio.value) === colorType ? radio.setAttribute('checked', '') : radio.removeAttribute('checked');
+             radio.checked = Number(radio.value) === colorType;
         })
         containerEle.classList.remove('disabled');
     });

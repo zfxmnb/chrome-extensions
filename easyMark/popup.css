@@ -41,6 +41,11 @@ body {
     width: 160px;
     height: 24px;
     cursor: pointer;
+    color: #666;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 [data-color="transparent"] {

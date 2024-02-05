@@ -10,5 +10,37 @@
     },
     "background": {
         "service_worker": "background.js"
+    },
+    "commands": {
+        "clear": {
+            "suggested_key": {
+              "default": "Ctrl+Shift+0"
+            },
+            "description": "clear",
+            "global": true
+        },
+        "mark1": {
+            "suggested_key": {
+              "default": "Ctrl+Shift+9"
+            },
+            "description": "mark red",
+            "global": true
+        },
+        "mark2": {
+            "suggested_key": {
+              "default": "Ctrl+Shift+8"
+            },
+            "description": "mark green",
+            "global": true
+        },
+        "mark3": {
+            "suggested_key": {
+              "default": "Ctrl+Shift+7"
+            },
+            "description": "mark blue",
+            "global": true
+        }
+        
+
     }
   }

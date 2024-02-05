@@ -13,16 +13,16 @@ async function updateStatus() {
     const tab = await getTab();
     if (!tab?.url || !/^https?:\/\/[^\/]+/.test(tab.url) || tab?.status !== 'complete') {
         currentEle.parentNode.classList.add('disabled');
-        currentEle.removeAttribute('checked');
+        currentEle.checked = false;
         return 
     }
     chrome.storage.local.get(['scope_all', 'scope_domain', 'scope_iframe'], async function({ scope_all = false, scope_domain = [], scope_iframe = false} = {}) {
-        scope_all ? allEle.setAttribute('checked', ''): allEle.removeAttribute('checked');
-        scope_iframe ? iframeELE.setAttribute('checked', ''): iframeELE.removeAttribute('checked');
+        allEle.checked = scope_all;
+        iframeELE.checked = scope_iframe;
         const origin = tab.url.match(/^https?:\/\/[^\/]+/)?.[0];
         const domainChecked = scope_domain.includes(origin);
         currentEle.parentNode.classList.remove('disabled');
-        domainChecked ? currentEle.setAttribute('checked', ''): currentEle.removeAttribute('checked');
+        currentEle.checked = domainChecked;
     });
 }
 

@@ -46,6 +46,9 @@
 // ==/UserScript==
 
 (function () {
+    // 基础码率（1080p）
+    const BaseVideoBitsPerSecond = 4096000
+
     const videoType = 'video/webm'
     const html = `
         <style>
@@ -438,14 +441,13 @@
             if (this._status === STATUS.STOP) {
                 this.startInit(); // 初始化
                 const width = Math.max(this._video.videoWidth, this._video.videoHeight);
-                const base = 4096000;
-                let videoBitsPerSecond = base;
+                let videoBitsPerSecond = BaseVideoBitsPerSecond;
                 if (width > 2560) {
-                    videoBitsPerSecond = base * 3;
+                    videoBitsPerSecond = BaseVideoBitsPerSecond * 3;
                 } else if (width > 1920) {
-                    videoBitsPerSecond = base * 2;
+                    videoBitsPerSecond = BaseVideoBitsPerSecond * 2;
                 }else if (width <= 1280) {
-                    videoBitsPerSecond = base * 0.45;
+                    videoBitsPerSecond = BaseVideoBitsPerSecond * 0.45;
                 }
                 this._recorder = new MediaRecorder(this._video.captureStream(), {
                     mimeType: 'video/webm;codecs=h264', // 视频编码格式

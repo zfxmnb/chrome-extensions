@@ -46,8 +46,12 @@
 // ==/UserScript==
 
 (function () {
+    if (window.__videoRecorder) {
+        return 
+    }
+    console.log('Video Recorder is initialed');
     // 基础码率（1080p）
-    const BaseVideoBitsPerSecond = 4096000
+    const BaseVideoBitsPerSecond = 5120000
 
     const videoType = 'video/webm'
     const html = `
@@ -515,5 +519,3 @@
     }
     window.__videoRecorder = new Recorder()
 })();
-
-console.log('Video Recorder is initialed');
